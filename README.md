@@ -1,6 +1,6 @@
 # Sample_PathPlan
 2D Path planner
-The file  is a code stencil for implementing various search algorithms for path planning. The planner will execute automatically upon page load of the file into the browser. Other worlds can be used through custom URL commands (described below) , or uncomment/commenting lines in the initPlanner() function.
+The file PathPlan.html is a code stencil for implementing various search algorithms for path planning. The planner will execute automatically upon page load of the file into the browser. Other worlds can be used through custom URL commands (described below) , or uncomment/commenting lines in the initPlanner() function.
 
 Usage
 The planner will start upon browser loading this file, with execution parameters specifing:
@@ -16,4 +16,4 @@ The planner will start upon browser loading this file, with execution parameters
     as well as RRT step length
 These parameters can be specified in the URL as parameter assignments separated by question marks, as in the following example:
 
-  search_canvas.html?search_alg=A-star?planning_scene=misc?q_init=[0,0]?q_goal=[4,4]?eps=0.1
+  PathPlan.html?search_alg=A-star?planning_scene=misc?q_init=[0,0]?q_goal=[4,4]?eps=0.1
