@@ -18,4 +18,4 @@ eps: "epsilon" number for search spatial resolution of graph
     as well as RRT step length
 
 These parameters can be specified in the URL as parameter assignments separated by question marks, as in the following example:
-  PathPlan.html?search_alg=A-star?planning_scene=misc?q_init=[0,0]?q_goal=[4,4]?eps=0.1
+PathPlan.html?search_alg=A-star?planning_scene=misc?q_init=[0,0]?q_goal=[4,4]?eps=0.1
