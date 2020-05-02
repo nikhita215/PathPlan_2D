@@ -903,7 +903,7 @@ function extendRRT(tree,q_rand){
     if (search_alg == "RRT-star") {
         if (!testCollision(q_new) && newv) {
         insertTreeVertex(tree,q_new);
-        parent(tree,q_near_index,q_new);
+        parent1(tree,q_near_index,q_new);
         rewire(tree);
         insertTreeEdge(tree,tree.vertices[tree.newest].parent,tree.newest);
         dis =  Math.sqrt(Math.pow(q_new[0] - q_goal[0], 2) + Math.pow(q_new[1] - q_goal[1], 2));
@@ -927,7 +927,7 @@ function extendRRT(tree,q_rand){
 return "trapped";
 }
 
-function parent(tree,q_near_index,q_new){
+function parent1(tree,q_near_index,q_new){
     var cmin = Math.sqrt(Math.pow(q_new[0] - tree.vertices[q_near_index].vertex[0], 2) + Math.pow(q_new[1] - tree.vertices[q_near_index].vertex[1], 2)) + tree.vertices[q_near_index].cost;
     var index = q_near_index;
     var cost;
