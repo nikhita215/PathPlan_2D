@@ -212,26 +212,18 @@ function animate() {
 function iterateGraphSearch() {
 q=[];
 
-if( (testCollision( [ G[i_o-1][j_o].x, G[i_o-1][j_o].y ] ) || G[i_o-1][j_o].visited) && (testCollision( [ G[i_o][j_o-1].x, G[i_o][j_o-1].y ] ) || G[i_o][j_o-1].visited) &&     (testCollision( [ G[i_o+1][j_o].x, G[i_o+1][j_o].y ] ) || G[i_o+1][j_o].visited) && (testCollision( [ G[i_o][j_o+1].x, G[i_o][j_o+1].y ] ) || G[i_o][j_o+1].visited) )
-    {current_node = current_node.parent;
-     i_o = current_node.parent.i;
-       j_o = current_node.parent.j;}
-else{
-    current_node = visit_queue.pop();}
-
+    current_node = visit_queue.pop();
+    i_o=current_node.i;
+    j_o=current_node.j;
+//console.log(visit_queue.length);
 
 G[i_o][j_o].visited = true;
 q= [ G[i_o][j_o].x, G[i_o][j_o].y ] ;
 draw_2D_configuration(q);
 search_visited++ ;
-//console.log(q);
-//console.log(current_node.visited);
-south= false;
-north= false;
-east= false;
-west= false;
 
-if(testCollision(q)){ 
+
+if(testCollision(q)){
     search_iterate = false;
     return "failed";
    
@@ -240,54 +232,45 @@ else if(current_node != goal){
     path_length++;
     draw_2D_configuration(q);
 
-    if(testCollision( [ G[i_o-1][j_o].x, G[i_o-1][j_o].y ] )){;}  
-    else if(G[i_o - 1][j_o].visited == false){
+    if(testCollision( [ G[i_o-1][j_o].x, G[i_o-1][j_o].y ] )){;}
+    else if(G[i_o-1][j_o].queued == false){
         visit_queue.push(G[i_o-1][j_o]);
-        west= true;}
+        G[i_o-1][j_o].parent = G[i_o][j_o];
+        G[i_o-1][j_o].queued = true;
+        G[i_o-1][j_o].distance = G[i_o][j_o].distance + eps;}
 
-    if(testCollision( [ G[i_o+1][j_o].x, G[i_o+1][j_o].y ] )){;}      
-    else if(G[i_o+1][j_o].visited == false){
-        visit_queue.push(G[i_o+1][j_o]);
-        east= true;}
-
-    if(testCollision( [ G[i_o][j_o-1].x, G[i_o][j_o-1].y ] )){;}     
-    else if(G[i_o][j_o - 1].visited == false){
+    if(testCollision( [ G[i_o][j_o-1].x, G[i_o][j_o-1].y ] )){;}
+    else if(G[i_o][j_o-1].queued == false){
         visit_queue.push(G[i_o][j_o-1]);
-        north= true;}
+        G[i_o][j_o-1].queued = true;
+        G[i_o][j_o-1].parent = G[i_o][j_o];
+        G[i_o][j_o-1].distance = G[i_o][j_o].distance + eps;}
      
-    if(testCollision( [ G[i_o][j_o+1].x, G[i_o][j_o+1].y ] )){console.log("testCollision( [ G[i_o][j_o+2].x, G[i_o][j_o+2].y ] )");}    
-    else{ if(G[i_o][j_o+1].visited == false){
+    if(testCollision( [ G[i_o+1][j_o].x, G[i_o+1][j_o].y ] )){;}
+    else if(G[i_o+1][j_o].queued == false){
+        visit_queue.push(G[i_o+1][j_o]);
+        G[i_o+1][j_o].parent = G[i_o][j_o];
+        G[i_o+1][j_o].queued = true;
+        G[i_o+1][j_o].distance = G[i_o][j_o].distance + eps;}
+     
+    if(testCollision( [ G[i_o][j_o+1].x, G[i_o][j_o+1].y ] )){;}
+    else if(G[i_o][j_o+1].queued == false){
         visit_queue.push(G[i_o][j_o+1]);
-        south= true;}}
-    
-    if (south) {G[i_o][j_o+1].parent = G[i_o][j_o];
-    G[i_o][j_o+1].distance = G[i_o][j_o].distance + eps;
-    j_o=j_o+1;}
-        else if(north) {G[i_o][j_o-1].parent = G[i_o][j_o];
-        G[i_o][j_o-1].distance = G[i_o][j_o].distance + eps;
-        j_o = j_o-1;}
-            else if(east) {G[i_o+1][j_o].parent = G[i_o][j_o];
-            G[i_o+1][j_o].distance = G[i_o][j_o].distance + eps;
-            i_o = i_o+1;}
-                else if (west) {G[i_o-1][j_o].parent = G[i_o][j_o];
-                    G[i_o-1][j_o].distance = G[i_o][j_o].distance + eps;
-                    i_o = i_o-1;}
-
+        G[i_o][j_o+1].queued = true;
+        G[i_o][j_o+1].parent = G[i_o][j_o];
+        G[i_o][j_o+1].distance = G[i_o][j_o].distance + eps;}
    
-
-    // console.log(G[i_o][j_o].parent.x);
-    // console.log(current_node);
-   //  console.log(visit_queue[visit_queue.length - 1]);
        
 return "iterating";
 
-} 
+}
 else if(current_node == goal){
     drawHighlightedPathGraph(current_node);
     search_iterate = false;
     console.log("yay");
     return "succeeded";
-} 
+}
+else {return "didn't find goal" ;}
 
    /* visit_list.push(newLocation);
     visited.push(current);
