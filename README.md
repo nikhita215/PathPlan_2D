@@ -1,10 +1,8 @@
-##Path_Planner
-
-###2D Path planner:
+### 2D Path planner:
 
 The file PathPlan.html is a code stencil for implementing various search algorithms for path planning. The planner will execute automatically upon page load of the file into the browser. Other worlds can be used through custom URL commands (described below) , or uncomment/commenting lines in the initPlanner() function.
 
-###Usage: 
+### Usage: 
 
 The planner will start upon browser loading this file, with execution parameters specifing:
 
